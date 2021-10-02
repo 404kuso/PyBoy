@@ -10,9 +10,10 @@ __pdoc__ = {
 
 from pyboy.utils import WindowEvent
 from pyboy.logger import logger
-from ..base_plugin import PyBoyGameWrapper
+
 from . import constants
-from .utils import get_character_index
+from ..base_plugin import PyBoyGameWrapper
+from .utils import String, fill_range
 
 PKMN_SIZE = 0x2C
 BYTE_ORDER = 'big'
@@ -85,14 +86,7 @@ class GameWrapperPokemonRed(PyBoyGameWrapper):
 
         Will always add a string terminator (80) at the end.
         """
-        i = 0
-        for character in text:
-            try:
-                self.pyboy.set_memory_value(address + i, get_character_index(character))
-                i += 1
-            except:
-                pass
-        self.pyboy.set_memory_value(address + i, constants.STRING_TERMINATOR)
+        fill_range(self.pyboy, address, String.decode_bytes)
 
     def set_rom_text(self, text, bank, address):
         i = 0
@@ -381,5 +375,8 @@ class GameWrapperPokemonRed(PyBoyGameWrapper):
 
     def set_wild_encounter_rate(self, value):
         self.pyboy.set_memory_value(0xD887, value)
+
+    from .misc import game_settings
+    from .screen import cursor_position, select_box_items, select_box_shown, select_in_box, text_box_content, text_box_shown, skip_text_box, current_frame_text_box_content, wait_for_textbox_finish, yes_no_box_shown, select_yes_no
 
     # TODO: Add player position functions

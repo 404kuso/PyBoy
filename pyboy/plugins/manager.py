@@ -18,6 +18,7 @@ from pyboy.plugins.screenshot_recorder import ScreenshotRecorder # isort:skip
 from pyboy.plugins.game_wrapper_super_mario_land import GameWrapperSuperMarioLand # isort:skip
 from pyboy.plugins.game_wrapper_tetris import GameWrapperTetris # isort:skip
 from pyboy.plugins.game_wrapper_kirby_dream_land import GameWrapperKirbyDreamLand # isort:skip
+from pyboy.plugins.game_wrapper_pokemon_red import GameWrapperPokemonRed
 # imports end
 
 
@@ -74,6 +75,8 @@ class PluginManager:
         self.game_wrapper_tetris_enabled = self.game_wrapper_tetris.enabled()
         self.game_wrapper_kirby_dream_land = GameWrapperKirbyDreamLand(pyboy, mb, pyboy_argv)
         self.game_wrapper_kirby_dream_land_enabled = self.game_wrapper_kirby_dream_land.enabled()
+        self.game_wraper_pokemon_red = GameWrapperPokemonRed(pyboy, mb, pyboy_argv)
+        self.game_wraper_pokemon_red_enabled = self.game_wraper_pokemon_red.enabled()
         # plugins_enabled end
 
     def gamewrapper(self):
@@ -84,6 +87,8 @@ class PluginManager:
             return self.game_wrapper_tetris
         if self.game_wrapper_kirby_dream_land_enabled:
             return self.game_wrapper_kirby_dream_land
+        if self.game_wraper_pokemon_red_enabled:
+            return self.game_wraper_pokemon_red
         # gamewrapper end
         return None
 

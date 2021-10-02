@@ -99,3 +99,7 @@ mooneye/
 blargg/
 
 pyboy/core/debug.pxi
+# ignore vscode settings folder
+.vscode/
+# file to test package
+test.py
